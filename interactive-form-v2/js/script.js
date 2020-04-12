@@ -22,11 +22,13 @@ for(let i =0; i<color.children.length; i++) {
     if(i !== 0)
     color.children[i].style.display = 'none';
 }
+
 //event listener for button to display correct color options
 design.addEventListener('change', (event) => {
     if(event.target.value === "js puns"){
         for(let i =0; i<color.children.length; i++) {
             if(i === 1 || i=== 2 || i===3) {
+            color.children[1].selected = true;
             color.children[i].style.display = 'block'; 
         }   else {
             color.children[i].style.display = 'none';
@@ -36,6 +38,7 @@ design.addEventListener('change', (event) => {
     } else if (event.target.value === 'heart js') { 
         for(let i =0; i<color.children.length; i++) 
             if(i === 4 || i=== 5 || i===6) {
+            color.children[4].selected = true;
             color.children[i].style.display = 'block';
          }  else {
             color.children[i].style.display = 'none';
@@ -55,7 +58,6 @@ activities.appendChild(costElement);
 //checkbox event handlers
 activities.addEventListener('change', (event) => {
     
-
 
 });
 
