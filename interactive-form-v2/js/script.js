@@ -47,7 +47,6 @@ design.addEventListener('change', (event) => {
 
 });
 
-
 //activites section
 const activities = document.querySelector('.activities');
 let totalCost = 0;
@@ -57,9 +56,77 @@ activities.appendChild(costElement);
 
 //checkbox event handlers
 activities.addEventListener('change', (event) => {
-    
+    const button = event.target; 
+    const cost = parseInt(button.getAttribute("data-cost"));
+    const activity = button.getAttribute("data-day-and-time");
+    const selected = document.querySelectorAll(".activities input")
+        if(button.checked){
+            totalCost+=cost;
+            costElement.textContent = `Total of your activities: ${totalCost}`;
+        }
+        else {
+            totalCost-=cost;
+            costElement.textContent = `Total of your activities: ${totalCost}`;
+}
+    //disable conflicting time slots 
+    for(let i = 1; i<selected.length; i++) {
+        const calender = selected[i].getAttribute('data-day-and-time');
+        if(calender === activity && button !==selected[i]) {
+            if(button.checked) {
+                selected[i].disabled = true;
+                selected[i].parentElement.syle.color = "dark-grey";
+            }
+            else {
+                selected[i].disabled = false;
+                selected.parentElement.style.color = "inherit";
+            }
+        }
 
+    }
+});
+
+const paymentSelect = document.getElementById('payment').firstElementChild;
+paymentSelect.style.display = 'none';
+let payType = document.getElementById('payment');
+let CC = document.getElementById('credit-card');
+
+let payPal = document.getElementById('paypal');
+payPal.style.display = 'none';
+
+let bitCoin = document.getElementById('bitcoin');
+bitCoin.style.display = 'none';
+
+payType.addEventListener('change', (event) => {
+ if(payType.value === 'credit card') {
+    CC.style.display = 'block';
+    bitCoin.style.display = 'none';
+    payPal.style.display = 'none';
+} else if(payType.value === 'paypal') {
+    payPal.style.display = 'block';
+    CC.style.display = 'none';
+    bitCoin.style.display = 'none';
+} else {
+    bitCoin.style.display = 'block';
+    CC.style.display = 'none';
+    payPal.style.display = 'none';
+}
 });
 
 
 
+function validateName() {
+
+
+}
+
+function validateEmail() {
+
+}
+
+function validateActivity() {
+
+}
+
+function validateCC() {
+
+}
