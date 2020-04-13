@@ -112,21 +112,60 @@ payType.addEventListener('change', (event) => {
 }
 });
 
+//define elements to validate 
+const userName = document.getElementById('');
+const emailInput = document.getElementById('');
+const activityInput = document.getElementById('');
+const userCC = document.getElementById('');
+const zipInput = document.getElementById('');
 
+//validate with Reg Expressions
+function validateName(name) {
+    return / /.test(name);
 
-function validateName() {
+}
+
+function validateEmail(email) {
+    return /    /.test(email);
+}
+
+function validateActivity(activityy) {
+    return /    /.test(activityy);
+}
+
+function validateCC(creditCard) {
+    return / /.test(creditCard);
+}
+
+function validateZip(zip) {
+    return / /.test(zip)
+}
+
+//Show tip when not filled out
+function showOrHideTip(show, element) {
+    //show element when true hide when false
+    if(show) {
+        element.style.display = "inherit"
+    } else{
+        element.style.display = "none";
+    }
 
 
 }
 
-function validateEmail() {
-
+//add a tool tip function to use for the differnet inputs
+function createListener(validator) {
+    return e => {
+        const text = e.target.value;
+        const valid = validator(text);
+        const showTip = e.target.nextElementSibling;
+        showOrHideTip(showTip, tooltip);
+    };
 }
 
-function validateActivity() {
+userName.addEventListener("input", createListener(validateName));
+emailInput.addEventListener('input', createListener(validateEmail));
+activityInput.addEventListener('input', createListener(validateActivity));
+userCC.addEventListener("input", createListener(validateCC));
+zipInput.addEventListener("input", createListener(validateZip));
 
-}
-
-function validateCC() {
-
-}
