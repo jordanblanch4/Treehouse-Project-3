@@ -3,9 +3,19 @@ document.getElementById('name').focus();
 
 //hide other option with JS
 const otherTitle = document.getElementById('other-title');
-otherTitle.style.display = "none";
+otherTitle.hidden = true;
+const title = document.getElementById('title');
+title.addEventListener('change', (e) => {
+    if(e.target.value === "other") {
+    otherTitle.hidden = false;
+    
+} else {
+    otherTitle.hidden = true;
+}
 
-//hide the select theme option  //what they want???
+});
+
+//hide the select theme option 
 const design = document.getElementById('design');
 design.firstElementChild.style.display = 'none'
 
@@ -51,7 +61,7 @@ design.addEventListener('change', (event) => {
 const activities = document.querySelector('.activities');
 let totalCost = 0;
 const costElement = document.createElement('p');
-costElement.textContent = `Total of your activities: ${totalCost}`;
+costElement.textContent = `Total cost of your activities: $${totalCost}`;
 activities.appendChild(costElement);
 
 //checkbox event handlers
@@ -62,23 +72,23 @@ activities.addEventListener('change', (event) => {
     const selected = document.querySelectorAll(".activities input")
         if(button.checked){
             totalCost+=cost;
-            costElement.textContent = `Total of your activities: ${totalCost}`;
+            costElement.textContent = `Total cost of your activities: $${totalCost}`;
         }
         else {
             totalCost-=cost;
-            costElement.textContent = `Total of your activities: ${totalCost}`;
+            costElement.textContent = `Total cost of your activities: $${totalCost}`;
 }
     //disable conflicting time slots 
-    for(let i = 1; i<selected.length; i++) {
+    for(let i = 0; i<selected.length; i++) {
         const calender = selected[i].getAttribute('data-day-and-time');
         if(calender === activity && button !==selected[i]) {
             if(button.checked) {
                 selected[i].disabled = true;
-                selected[i].parentElement.syle.color = "dark-grey";
+                selected[i].parentElement.style.color = "red";
             }
             else {
                 selected[i].disabled = false;
-                selected.parentElement.style.color = "inherit";
+                selected[i].parentElement.style.color = "inherit";
             }
         }
 
@@ -113,41 +123,49 @@ payType.addEventListener('change', (event) => {
 });
 
 //define elements to validate 
-const userName = document.getElementById('');
-const emailInput = document.getElementById('');
+const userName = document.getElementById('name');
+const emailInput = document.getElementById('mail');
 const activityInput = document.getElementById('');
-const userCC = document.getElementById('');
-const zipInput = document.getElementById('');
+const userCC = document.getElementById('payment'); //FIXME
+const zipInput = document.getElementById('zip');
 
 //validate with Reg Expressions
 function validateName(name) {
-    return / /.test(name);
+    return /^[A-Za-z][A-Za-z\'\-]+([\ A-Za-z][A-Za-z\'\-]+)*/.test(name);
 
 }
 
 function validateEmail(email) {
-    return /    /.test(email);
+    return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
 }
 
-function validateActivity(activityy) {
-    return /    /.test(activityy);
-}
+//check if any checkboxes selected
+// function validateActivity() {
+//     for(let i=0; i<activityInput.length; i++)
+//         if(activities.checkbox === checked){
+//             return true;
+//          } else{
+//             return false;
+// }    
+// }
 
 function validateCC(creditCard) {
-    return / /.test(creditCard);
+    return /^\d{4}-?\d{4}-?\d{4}-?\d{4}|\d{3}-?\d{3}-?\d{3}-?\d{3}$/.test(creditCard);
 }
 
 function validateZip(zip) {
-    return / /.test(zip)
+    return /^\d{5}$/.test(zip)
 }
 
 //Show tip when not filled out
 function showOrHideTip(show, element) {
     //show element when true hide when false
     if(show) {
-        element.style.display = "inherit"
+        element.style.borderColor = 'red'; //create style for tool tip
+        element.textContent = "Please provide a valid name";
+        element.style.color = 'red'
     } else{
-        element.style.display = "none";
+        element.style.display = "none"; //create style for good
     }
 
 
@@ -158,14 +176,14 @@ function createListener(validator) {
     return e => {
         const text = e.target.value;
         const valid = validator(text);
-        const showTip = e.target.nextElementSibling;
-        showOrHideTip(showTip, tooltip);
+        const showTip = text!= " " && !valid;
+        const toolTip = e.target.nextElementSibling;
+        showOrHideTip(showTip, toolTip);
     };
 }
 
 userName.addEventListener("input", createListener(validateName));
 emailInput.addEventListener('input', createListener(validateEmail));
-activityInput.addEventListener('input', createListener(validateActivity));
-userCC.addEventListener("input", createListener(validateCC));
+//userCC.addEventListener("input", createListener(validateCC));
 zipInput.addEventListener("input", createListener(validateZip));
 
