@@ -96,7 +96,7 @@ activities.addEventListener('change', (event) => {
 });
 
 const paymentSelect = document.getElementById('payment').firstElementChild;
-paymentSelect.style.display = 'none';
+paymentSelect.remove();
 paymentSelect.disabled = true;
 let payType = document.getElementById('payment');
 let CC = document.getElementById('credit-card');
