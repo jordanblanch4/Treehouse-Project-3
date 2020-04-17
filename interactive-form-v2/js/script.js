@@ -95,6 +95,7 @@ activities.addEventListener('change', (event) => {
     }
 });
 
+//declared var for payment and hid the select payment option with JS
 const paymentSelect = document.getElementById('payment').firstElementChild;
 paymentSelect.remove();
 paymentSelect.disabled = true;
@@ -107,6 +108,7 @@ payPal.style.display = 'none';
 let bitCoin = document.getElementById('bitcoin');
 bitCoin.style.display = 'none';
 
+//event listener to display pay type information
 payType.addEventListener('change', (event) => {
  if(payType.value === 'credit card') {
     CC.style.display = 'block';
@@ -123,7 +125,7 @@ payType.addEventListener('change', (event) => {
 }
 });
 
-//define elements to validate 
+//define elements/variables for form validation
 const userName = document.getElementById('name');
 const emailInput = document.getElementById('mail');
 const activityInput = document.getElementById('');
@@ -139,6 +141,7 @@ const proTip = document.getElementsByClassName('proTip');
 const proTipcc = document.getElementsByClassName('proTipcc')
 let CCTrue = true;
 const form = document.querySelector('form');
+
 //validate with Reg Expressions
 function validateName(name) {
     return /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/.test(name);
@@ -164,6 +167,7 @@ function validCv(CV) {
     return /^\d{3}$/.test(CV);
 }
 
+//check to make sure at least one activity is selected
 function activityChecker() {
 for(let i = 0; i<checkBoxes.length; i++) {
     if(checkBoxes[i].checked) {
@@ -171,7 +175,7 @@ for(let i = 0; i<checkBoxes.length; i++) {
     }
 }
 }
-
+//get the boolean value of the validators for use in the even listener
 function creditCardTester(){
     return validateCC(ccNum.value);
   }
@@ -209,17 +213,16 @@ function creditCardTester(){
     creditChild[i].appendChild(ccText);
     }
   
-//Submit Listener that test if all required parts of the form are filled before submitting
+//Submit Listener checking all required sections are filled
 form.addEventListener('submit', (e)=>{
-    //-------------Credit Card Section------------------//
-      //CVV
+      
        if(creditCardTester() && CCTrue && zipCodeTester() && !cvCodeTester()){
           e.preventDefault();
           cVv.focus();
           proTipcc[2].style.display = 'block';
           proTipcc[2].innerText = "Must Enter Valid 3 digit CVV code";
           cVv.style.borderColor = '#FF6347';
-          //console.log('CVV field not working like you want it to');
+          
         }else{
           proTipcc[2].style.display = 'none';
           cVv.style.borderColor = 'green';}
@@ -231,7 +234,7 @@ form.addEventListener('submit', (e)=>{
             proTipcc[1].innerText = "Must Enter Valid 5 digit zip code";
             zip.style.borderColor = '#FF6347';
             cVv.style.borderColor = '#FF6347';
-            //console.log('Zip field not working like you want it to');
+          
           }else {
             proTipcc[1].style.display = 'none';
             zip.style.borderColor = 'green';
@@ -244,7 +247,7 @@ form.addEventListener('submit', (e)=>{
             ccNum.style.borderColor = '#FF6347';
             zip.style.borderColor = '#FF6347';
             cVv.style.borderColor = '#FF6347';
-            //console.log('CC field not working like you want it to');
+         
           }else{
             proTipcc[0].style.display = 'none';
             ccNum.style.borderColor = 'green';
@@ -257,7 +260,7 @@ form.addEventListener('submit', (e)=>{
     proTip[2].style.display = 'block';
     proTip[2].innerText = "Must select at least one activity";
     legendary[2].style.borderColor = '#FF6347';
-    //console.log('Box field not working like you want it to');
+    
   }else {
     proTip[2].style.display = 'none';
     legendary[2].style.borderColor = 'blue';
@@ -268,7 +271,7 @@ form.addEventListener('submit', (e)=>{
     emailInput.focus();
     proTip[0].style.display = 'block';
     emailInput.style.borderColor = '#FF6347';
-    //console.log('eMail field not working like you want it to');
+   
   } else {
     proTip[0].style.display = 'none';
     emailField.style.borderColor = 'green';
@@ -277,8 +280,8 @@ form.addEventListener('submit', (e)=>{
     e.preventDefault();
     userName.focus();
     proTip[0].style.display = 'block';
-    userName.style.borderColor = '#FF6347'; //tomato
-    //console.log('Name field not working like you want it to');
+    userName.style.borderColor = '#FF6347'; 
+    
   } else if (nameTester() && !emailTester()){
     proTip[0].style.display = 'block';
     nameField.style.borderColor = 'green';
