@@ -1,6 +1,9 @@
 //add focus to the first input on load
 document.getElementById('name').focus();
 
+//Creditcard active variable for later
+let CCTrue = true;
+
 //hide other option with JS
 const otherTitle = document.getElementById('other-title');
 otherTitle.hidden = true;
@@ -118,10 +121,12 @@ payType.addEventListener('change', (event) => {
     payPal.style.display = 'block';
     CC.style.display = 'none';
     bitCoin.style.display = 'none';
+    CCTrue = false;
 } else {
     bitCoin.style.display = 'block';
     CC.style.display = 'none';
     payPal.style.display = 'none';
+    CCTrue = false;
 }
 });
 
@@ -139,7 +144,6 @@ const ccNum = document.getElementById('cc-num');
 const cVv = document.getElementById('cvv');
 const proTip = document.getElementsByClassName('proTip');
 const proTipcc = document.getElementsByClassName('proTipcc')
-let CCTrue = true;
 const form = document.querySelector('form');
 
 //validate with Reg Expressions
@@ -215,7 +219,7 @@ function creditCardTester(){
   
 //Submit Listener checking all required sections are filled
 form.addEventListener('submit', (e)=>{
-      
+
        if(creditCardTester() && CCTrue && zipCodeTester() && !cvCodeTester()){
           e.preventDefault();
           cVv.focus();
@@ -252,7 +256,7 @@ form.addEventListener('submit', (e)=>{
             proTipcc[0].style.display = 'none';
             ccNum.style.borderColor = 'green';
           }
-
+        
           if(!activityChecker()){
     e.preventDefault();
     const focusBox = activities.querySelector('input[type="checkbox"]');
