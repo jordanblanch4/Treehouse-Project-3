@@ -278,7 +278,7 @@ form.addEventListener('submit', (e)=>{
    
   } else {
     proTip[0].style.display = 'none';
-    emailField.style.borderColor = 'green';
+    emailInput.style.borderColor = 'green';
   }
   if(!nameTester()){
     e.preventDefault();
@@ -288,7 +288,7 @@ form.addEventListener('submit', (e)=>{
     
   } else if (nameTester() && !emailTester()){
     proTip[0].style.display = 'block';
-    nameField.style.borderColor = 'green';
-  }else {nameField.style.borderColor = 'green';}
+    userName.style.borderColor = 'green';
+  }else {userName.style.borderColor = 'green';}
 
 });
